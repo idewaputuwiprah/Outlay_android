@@ -3,8 +3,7 @@ package com.example.outlay.model;
 import java.util.Date;
 
 public class ModelPemasukan {
-    String nominal, nama;
-    Date date;
+    String nominal, nama, date;
 
     public ModelPemasukan(){
 
@@ -26,11 +25,11 @@ public class ModelPemasukan {
         this.nama = nama;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

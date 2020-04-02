@@ -1,8 +1,8 @@
 package com.example.outlay.controller;
 
-public class PengeluaranCtrl {
+public class DatabaseCtrl {
 
-    public PengeluaranCtrl(){
+    public DatabaseCtrl(){
 
     }
 
