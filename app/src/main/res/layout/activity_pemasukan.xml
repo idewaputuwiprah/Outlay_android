@@ -7,6 +7,33 @@
     android:orientation="vertical"
     tools:context=".Pemasukan">
 
+    <RelativeLayout
+        android:id="@+id/relative_pemasukan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorTemplate">
+
+        <Button
+            android:id="@+id/back_btn_pemasukan"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_btn"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pemasukan"
+            android:layout_toRightOf="@id/back_btn_pemasukan"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:textSize="29dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"/>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPemasukan"
         android:layout_width="match_parent"

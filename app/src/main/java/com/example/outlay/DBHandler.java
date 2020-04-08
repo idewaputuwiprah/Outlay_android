@@ -1,6 +1,8 @@
 package com.example.outlay;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
@@ -12,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -44,5 +47,34 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_4);
         onCreate(db);
+    }
+
+    public Cursor queryPemasukan(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_2,null);
+        return res;
+    }
+
+    public boolean insertPemasukan(String nama, String tanggal, String nominal){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("NAMA_PEMASUKAN", nama);
+        contentValues.put("NOMINAL", nominal);
+        contentValues.put("ID_KATEGORI", 1);
+        contentValues.put("TANGGAL", tanggal);
+        long result = db.insert(TABLE_2, null, contentValues);
+
+        if(result == -1) return false;
+        else return true;
+    }
+
+    public boolean insertKategori(String nama){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("NAMA_KATEGORI", nama);
+        long result = db.insert(TABLE_4, null, contentValues);
+
+        if(result == -1) return false;
+        else return true;
     }
 }
