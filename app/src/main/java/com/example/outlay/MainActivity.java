@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.outlay.controller.DatabaseCtrl;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private CardView pengeluaran, pemasukan, laporan, hutang;
+    TextView textBalance;
     DBHandler dbHandler;
+    DatabaseCtrl databaseCtrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +25,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         dbHandler = new DBHandler(this);
+        databaseCtrl = new DatabaseCtrl(this);
 
         bindCard();
         checkDatabase();
+
+        textBalance = findViewById(R.id.balance);
+        textBalance.setText(databaseCtrl.currencyConv(dbHandler.totalBalance())+",00");
     }
 
     private void bindCard(){
@@ -38,10 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkDatabase(){
-        Cursor res = dbHandler.queryPemasukan();
+        Cursor res = dbHandler.queryPengeluaran();
         if (res.getCount() == 0){
-            boolean status = dbHandler.insertPemasukan("Gaji Bulanan", "4-8-2020", "5000000");
-            Toast.makeText(this,status+"", Toast.LENGTH_SHORT).show();
+            boolean status = dbHandler.insertKategori("Other");
+            boolean status2 = dbHandler.insertPemasukan("Gaji Bulanan", "4-8-2020", 5000000);
+            boolean status3 = dbHandler.insertPengeluaran("Makan malam", "4-8-2020", 24000);
+            Toast.makeText(this,status3+"", Toast.LENGTH_SHORT).show();
         }
     }
 

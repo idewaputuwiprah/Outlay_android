@@ -33,7 +33,8 @@ public class Pemasukan extends AppCompatActivity {
         recyclerView.setAdapter(adapterPemasukan);
     }
 
-    private String currencyConv(String nominal) {
+    private String currencyConv(int angka) {
+        String nominal = angka+"";
         String number="";
         int temp = 0;
 
@@ -61,9 +62,9 @@ public class Pemasukan extends AppCompatActivity {
         if(res.getCount() != 0){
             while (res.moveToNext()) {
                 model = new ModelPemasukan();
-                Toast.makeText(this, currencyConv(res.getString(2)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, currencyConv(res.getInt(2)), Toast.LENGTH_SHORT).show();
                 model.setNama(res.getString(1));
-                model.setNominal(currencyConv(res.getString(2)));
+                model.setNominal(currencyConv(res.getInt(2)));
                 model.setDate(res.getString(4));
                 models.add(model);
             }
