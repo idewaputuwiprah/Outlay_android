@@ -1,5 +1,6 @@
 package com.example.outlay;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.example.outlay.model.ModelHutang;
 import java.util.ArrayList;
 
 public class Tagihan extends AppCompatActivity {
+
+    private static final int TAGIHAN_REQUEST = 1;
 
     RecyclerView recyclerView;
     AdapterHutang adapterHutang;
@@ -50,7 +53,6 @@ public class Tagihan extends AppCompatActivity {
         if(res.getCount() != 0){
             while (res.moveToNext()) {
                 model = new ModelHutang();
-                Toast.makeText(this, databaseCtrl.currencyConv(res.getInt(2)), Toast.LENGTH_SHORT).show();
                 model.setNama(res.getString(1));
                 model.setNominal(databaseCtrl.currencyConv(res.getInt(2)));
                 model.setDate(res.getString(4));
@@ -62,11 +64,24 @@ public class Tagihan extends AppCompatActivity {
 
     public void onAddTagihan(View view){
         Intent intent = new Intent(this, FormTagihan.class);
-        startActivity(intent);
+        startActivityForResult(intent, TAGIHAN_REQUEST);
     }
 
     public void onBackTagihan(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TAGIHAN_REQUEST){
+            if (resultCode == RESULT_OK){
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        }
     }
 }

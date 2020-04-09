@@ -82,6 +82,12 @@ public class FormPemasukan extends AppCompatActivity {
                 finish();
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FormPemasukan.super.onBackPressed();
+            }
+        });
     }
 
     private void bindVariable(){

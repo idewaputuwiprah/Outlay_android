@@ -61,10 +61,17 @@ public class DBHandler extends SQLiteOpenHelper {
         return res;
     }
 
+//    public Cursor queryHutang(){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query = "select * from " + TABLE_3 + " where strftime(?, tanggal) = ?" ;
+//        Cursor res = db.rawQuery(query, new String[] {"%m", "04"});
+//        return res;
+//    }
+
     public Cursor queryHutang(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select * from " + TABLE_3 + " where strftime(?, tanggal) = ?" ;
-        Cursor res = db.rawQuery(query, new String[] {"%m", "04"});
+        String query = "select * from " + TABLE_3 ;
+        Cursor res = db.rawQuery(query, null);
         return res;
     }
 
@@ -119,12 +126,12 @@ public class DBHandler extends SQLiteOpenHelper {
         else return true;
     }
 
-    public boolean insertHutang(String nama, String tanggal, int nominal){
+    public boolean insertTagihan(String nama, String tanggal, int nominal, int id){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("NAMA_HUTANG", nama);
         contentValues.put("NOMINAL", nominal);
-        contentValues.put("ID_KATEGORI", 1);
+        contentValues.put("ID_KATEGORI", id);
         contentValues.put("TANGGAL", tanggal);
         long result = db.insert(TABLE_3, null, contentValues);
 

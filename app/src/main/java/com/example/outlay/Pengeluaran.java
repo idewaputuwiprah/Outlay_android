@@ -55,7 +55,6 @@ public class Pengeluaran extends AppCompatActivity {
         if(res.getCount() != 0){
             while (res.moveToNext()) {
                 model = new ModelPengeluaran();
-                Toast.makeText(this, databaseCtrl.currencyConv(res.getInt(2)), Toast.LENGTH_SHORT).show();
                 model.setNama(res.getString(1));
                 model.setNominal(databaseCtrl.currencyConv(res.getInt(2)));
                 model.setDate(res.getString(4));

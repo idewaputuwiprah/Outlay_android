@@ -1,7 +1,6 @@
 package com.example.outlay.controller;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 
 import com.example.outlay.DBHandler;
@@ -127,6 +126,12 @@ public class DatabaseCtrl {
     public boolean insertPengeluaranCtrl(String nama, String tanggal, int nominal, String kategori){
         int id = getIdKategori(kategori);
         boolean status = dbHandler.insertPengeluaran(nama, tanggal, nominal, id);
+        return status;
+    }
+
+    public boolean insertTagihanCtrl(String nama, String tanggal, int nominal, String kategori){
+        int id = getIdKategori(kategori);
+        boolean status = dbHandler.insertTagihan(nama, tanggal, nominal, id);
         return status;
     }
 

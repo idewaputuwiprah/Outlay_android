@@ -80,6 +80,12 @@ public class FormPengeluaran extends AppCompatActivity {
                 finish();
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FormPengeluaran.super.onBackPressed();
+            }
+        });
     }
 
     private void bindVar(){

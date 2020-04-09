@@ -2,7 +2,9 @@ package com.example.outlay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,11 @@ public class Report extends AppCompatActivity {
         pengeluaran = findViewById(R.id.nominalPengeluaran);
         pemasukan = findViewById(R.id.nominalPemasukan);
         tagihan = findViewById(R.id.nominalTagihan);
+    }
+
+    public void onBackReport(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
