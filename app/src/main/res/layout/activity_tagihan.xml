@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Tagihan">
 
     <RelativeLayout
@@ -18,7 +19,19 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:background="@drawable/back_btn"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:onClick="onBackTagihan"/>
+
+        <Button
+            android:id="@+id/add_tagihan"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/add_new"
+            android:layout_marginRight="10dp"
+            android:onClick="onAddTagihan"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,10 +40,18 @@
             android:layout_toRightOf="@id/back_btn_tagihan"
             android:layout_centerVertical="true"
             android:textStyle="bold"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:layout_marginLeft="10dp"
             android:textColor="#000"/>
 
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="70dp"
+        android:id="@+id/recyclerTagihan"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

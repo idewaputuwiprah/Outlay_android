@@ -37,7 +37,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_4 + " (ID_KATEGORI INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_KATEGORI TEXT)");
         db.execSQL("create table " + TABLE_1 + " (ID_PENGELUARAN INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_PENGELUARAN TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, TANGGAL TEXT, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
         db.execSQL("create table " + TABLE_2 + " (ID_PEMASUKAN INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_PEMASUKAN TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, TANGGAL TEXT, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
-        db.execSQL("create table " + TABLE_3 + " (ID_HUTANG INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_HUTANG TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
+        db.execSQL("create table " + TABLE_3 + " (ID_HUTANG INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_HUTANG TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, TANGGAL TEXT, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
     }
 
     @Override
@@ -61,12 +61,34 @@ public class DBHandler extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean insertPemasukan(String nama, String tanggal, int nominal){
+    public Cursor queryHutang(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " + TABLE_3 + " where strftime(?, tanggal) = ?" ;
+        Cursor res = db.rawQuery(query, new String[] {"%m", "04"});
+        return res;
+    }
+
+    public Cursor queryKategori(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_4,null);
+        return res;
+    }
+
+    public int queryIdKategori(String kategori){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " + TABLE_4 + " where NAMA_KATEGORI = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{kategori});
+        int res=-1;
+        if (cursor.moveToFirst()) res = cursor.getInt(0);
+        return res;
+    }
+
+    public boolean insertPemasukan(String nama, String tanggal, int nominal, int id){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("NAMA_PEMASUKAN", nama);
         contentValues.put("NOMINAL", nominal);
-        contentValues.put("ID_KATEGORI", 1);
+        contentValues.put("ID_KATEGORI", id);
         contentValues.put("TANGGAL", tanggal);
         long result = db.insert(TABLE_2, null, contentValues);
 
@@ -74,12 +96,12 @@ public class DBHandler extends SQLiteOpenHelper {
         else return true;
     }
 
-    public boolean insertPengeluaran(String nama, String tanggal, int nominal){
+    public boolean insertPengeluaran(String nama, String tanggal, int nominal, int id){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("NAMA_PENGELUARAN", nama);
         contentValues.put("NOMINAL", nominal);
-        contentValues.put("ID_KATEGORI", 1);
+        contentValues.put("ID_KATEGORI", id);
         contentValues.put("TANGGAL", tanggal);
         long result = db.insert(TABLE_1, null, contentValues);
 
@@ -97,19 +119,24 @@ public class DBHandler extends SQLiteOpenHelper {
         else return true;
     }
 
-    public int totalBalance(){
-        int res = 0, balance = 0, expense = 0;
+    public boolean insertHutang(String nama, String tanggal, int nominal){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor b = db.rawQuery("select SUM(NOMINAL) from " + TABLE_2, null);
-        Cursor e = db.rawQuery("select SUM(NOMINAL) from " + TABLE_1, null);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("NAMA_HUTANG", nama);
+        contentValues.put("NOMINAL", nominal);
+        contentValues.put("ID_KATEGORI", 1);
+        contentValues.put("TANGGAL", tanggal);
+        long result = db.insert(TABLE_3, null, contentValues);
 
-        if (b.moveToFirst()) balance = b.getInt(0);
-        else balance = -1;
+        if(result == -1) return false;
+        else return true;
+    }
 
-        if(e.moveToFirst()) expense = e.getInt(0);
-        else expense = -1;
-
-        res = balance - expense;
+    public Cursor sum(String nama_table, String nama_kolom){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select SUM(" + nama_kolom + ") from ";
+        Cursor res = db.rawQuery(query + nama_table, null);
         return res;
     }
+
 }

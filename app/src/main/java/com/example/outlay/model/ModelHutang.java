@@ -1,9 +1,10 @@
 package com.example.outlay.model;
 
-public class ModelPemasukan {
+public class ModelHutang {
+
     String nominal, nama, date;
 
-    public ModelPemasukan(){
+    public ModelHutang() {
 
     }
 

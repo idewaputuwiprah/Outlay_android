@@ -13,6 +13,9 @@
         <activity android:name=".Report" />
         <activity android:name=".Pemasukan" />
         <activity android:name=".Pengeluaran" />
+        <activity android:name=".FormPengeluaran"/>
+        <activity android:name=".FormPemasukan"/>
+        <activity android:name=".FormTagihan"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,20 +3,33 @@ package com.example.outlay;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.outlay.controller.DatabaseCtrl;
 
 public class Report extends AppCompatActivity {
 
-    DBHandler dbHandler;
+    DatabaseCtrl databaseCtrl;
+    TextView pengeluaran, pemasukan, tagihan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        dbHandler = new DBHandler(this);
+        databaseCtrl = new DatabaseCtrl(this);
+        bindTextView();
 
-        int balance = dbHandler.totalBalance();
-        Toast.makeText(this, balance+"", Toast.LENGTH_SHORT).show();
+        pemasukan.setText(databaseCtrl.totalPemasukan()+",00");
+        pengeluaran.setText(databaseCtrl.totalPengeluaran()+",00");
+        tagihan.setText(databaseCtrl.totalHutang()+",00");
     }
+
+    private void bindTextView() {
+        pengeluaran = findViewById(R.id.nominalPengeluaran);
+        pemasukan = findViewById(R.id.nominalPemasukan);
+        tagihan = findViewById(R.id.nominalTagihan);
+    }
+
 }

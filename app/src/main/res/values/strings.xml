@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Outlay</string>
+    <string name="prompt">Kategori</string>
 </resources>

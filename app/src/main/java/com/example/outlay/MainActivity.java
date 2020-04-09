@@ -1,5 +1,6 @@
 package com.example.outlay;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkDatabase();
 
         textBalance = findViewById(R.id.balance);
-        textBalance.setText(databaseCtrl.currencyConv(dbHandler.totalBalance())+",00");
+        textBalance.setText(databaseCtrl.currencyConv(databaseCtrl.totalBalance())+",00");
     }
 
     private void bindCard(){
@@ -47,12 +48,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkDatabase(){
-        Cursor res = dbHandler.queryPengeluaran();
+        Cursor res = dbHandler.queryKategori();
         if (res.getCount() == 0){
-            boolean status = dbHandler.insertKategori("Other");
-            boolean status2 = dbHandler.insertPemasukan("Gaji Bulanan", "4-8-2020", 5000000);
-            boolean status3 = dbHandler.insertPengeluaran("Makan malam", "4-8-2020", 24000);
-            Toast.makeText(this,status3+"", Toast.LENGTH_SHORT).show();
+            dbHandler.insertKategori("Other");
+            dbHandler.insertKategori("Makan/Minum");
+            dbHandler.insertKategori("Hobi");
+            dbHandler.insertKategori("Elektronik");
+            dbHandler.insertKategori("Pendidikan");
         }
     }
 

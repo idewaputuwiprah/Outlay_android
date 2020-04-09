@@ -1,11 +1,15 @@
 package com.example.outlay;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.outlay.adapter.AdapterPengeluaran;
@@ -16,9 +20,12 @@ import com.example.outlay.model.ModelPengeluaran;
 import java.util.ArrayList;
 
 public class Pengeluaran extends AppCompatActivity {
+
+    private static final int PENGELUARAN_REQUEST = 1;
     
     RecyclerView recyclerView;
     AdapterPengeluaran adapterPengeluaran;
+    Button back, add;
     DatabaseCtrl databaseCtrl;
 
     @Override
@@ -27,6 +34,8 @@ public class Pengeluaran extends AppCompatActivity {
         setContentView(R.layout.activity_pengeluaran);
 
         databaseCtrl = new DatabaseCtrl(this);
+        back = findViewById(R.id.back_btn_pemasukan);
+        add = findViewById(R.id.add_pemasukan);
         
         recyclerView = findViewById(R.id.recyclerPengeluaran);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,5 +63,28 @@ public class Pengeluaran extends AppCompatActivity {
             }
         }
         return models;
+    }
+
+    public void onAddPengeluaran(View view){
+        Intent intent = new Intent(this, FormPengeluaran.class);
+        startActivityForResult(intent, PENGELUARAN_REQUEST);
+    }
+
+    public void onBackPengeluaran(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PENGELUARAN_REQUEST){
+            if(resultCode == RESULT_OK){
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        }
     }
 }

@@ -20,7 +20,18 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:background="@drawable/back_btn"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:onClick="onBackPengeluaran"/>
+
+        <Button
+            android:id="@+id/add_pengeluaran"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/add_new"
+            android:layout_marginRight="10dp"
+            android:onClick="onAddPengeluaran"/>
 
         <TextView
             android:layout_width="wrap_content"

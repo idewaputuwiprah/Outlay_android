@@ -38,7 +38,9 @@
             android:textStyle="bold"
             android:textSize="20dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/title"
+            android:gravity="right"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
