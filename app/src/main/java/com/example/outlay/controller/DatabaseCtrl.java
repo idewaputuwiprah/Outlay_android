@@ -53,6 +53,11 @@ public class DatabaseCtrl {
         return res;
     }
 
+    public Cursor getUser(){
+        Cursor res = dbHandler.queryUser();
+        return res;
+    }
+
     public String currencyConv(int angka) {
         String nominal = angka+"";
         String number="";
@@ -132,6 +137,11 @@ public class DatabaseCtrl {
     public boolean insertTagihanCtrl(String nama, String tanggal, int nominal, String kategori){
         int id = getIdKategori(kategori);
         boolean status = dbHandler.insertTagihan(nama, tanggal, nominal, id);
+        return status;
+    }
+
+    public boolean insertUserCtrl(String nama, String pekerjaan, String password, byte[] salt){
+        boolean status = dbHandler.insertUser(nama, pekerjaan, password, salt);
         return status;
     }
 

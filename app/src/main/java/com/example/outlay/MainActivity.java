@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,13 +17,14 @@ import com.example.outlay.controller.DatabaseCtrl;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private CardView pengeluaran, pemasukan, laporan, hutang;
-    TextView textBalance;
+    TextView textBalance, nama, status;
     DBHandler dbHandler;
     DatabaseCtrl databaseCtrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         dbHandler = new DBHandler(this);
@@ -30,9 +32,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bindCard();
         checkDatabase();
+        setUser();
 
         textBalance = findViewById(R.id.balance);
         textBalance.setText(databaseCtrl.currencyConv(databaseCtrl.totalBalance())+",00");
+    }
+
+    private void setUser() {
+        Cursor res = databaseCtrl.getUser();
+        if (res.getCount() != 0){
+            res.moveToFirst();
+            nama.setText(res.getString(1));
+            status.setText(res.getString(2));
+        }
     }
 
     private void bindCard(){
@@ -40,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pemasukan = findViewById(R.id.card_pemasukan);
         laporan = findViewById(R.id.card_laporan);
         hutang = findViewById(R.id.card_hutang);
+        nama = findViewById(R.id.tvUserName);
+        status = findViewById(R.id.tvStatus);
 
         pengeluaran.setOnClickListener(this);
         pemasukan.setOnClickListener(this);

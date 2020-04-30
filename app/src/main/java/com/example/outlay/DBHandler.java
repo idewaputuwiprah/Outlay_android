@@ -26,6 +26,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String TABLE_2 = "pemasukan_table";
     public static final String TABLE_3 = "hutang_table";
     public static final String TABLE_4 = "kategori";
+    public static final String TABLE_5 = "user";
 
     public DBHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -34,6 +35,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table " + TABLE_5 + " (ID_USER INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_USER TEXT NOT NULL, PEKERJAAN TEXT NOT NULL, PASSWORD TEXT NOT NULL, SALT BLOB NOT NULL)");
         db.execSQL("create table " + TABLE_4 + " (ID_KATEGORI INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_KATEGORI TEXT)");
         db.execSQL("create table " + TABLE_1 + " (ID_PENGELUARAN INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_PENGELUARAN TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, TANGGAL TEXT, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
         db.execSQL("create table " + TABLE_2 + " (ID_PEMASUKAN INTEGER PRIMARY KEY AUTOINCREMENT, NAMA_PEMASUKAN TEXT, NOMINAL INTEGER, ID_KATEGORI INTEGER NOT NULL, TANGGAL TEXT, FOREIGN KEY (ID_KATEGORI) REFERENCES KATEGORI (ID_KATEGORI))");
@@ -46,7 +48,14 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_4);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_5);
         onCreate(db);
+    }
+
+    public Cursor queryUser(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_5,null);
+        return res;
     }
 
     public Cursor queryPemasukan(){
@@ -113,6 +122,19 @@ public class DBHandler extends SQLiteOpenHelper {
         long result = db.insert(TABLE_1, null, contentValues);
 
         if(result == -1) return false;
+        else return true;
+    }
+
+    public boolean insertUser(String nama, String pekerjaan, String password, byte[] salt){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("NAMA_USER", nama);
+        contentValues.put("PEKERJAAN", pekerjaan);
+        contentValues.put("PASSWORD", password);
+        contentValues.put("SALT", salt);
+        long result = db.insert(TABLE_5, null, contentValues);
+
+        if (result == -1) return false;
         else return true;
     }
 

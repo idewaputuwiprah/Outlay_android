@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Tagihan"></activity>
-        <activity android:name=".Report" />
-        <activity android:name=".Pemasukan" />
-        <activity android:name=".Pengeluaran" />
-        <activity android:name=".FormPengeluaran"/>
-        <activity android:name=".FormPemasukan"/>
-        <activity android:name=".FormTagihan"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".RegistrasiForm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Tagihan" />
+        <activity android:name=".Report" />
+        <activity android:name=".Pemasukan" />
+        <activity android:name=".Pengeluaran" />
+        <activity android:name=".FormPengeluaran" />
+        <activity android:name=".FormPemasukan" />
+        <activity android:name=".FormTagihan" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

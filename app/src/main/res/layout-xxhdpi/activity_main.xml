@@ -10,12 +10,12 @@
     <RelativeLayout
         android:id="@+id/relative_main_above"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="350dp">
 
         <ImageView
             android:background="@color/colorTemplate"
             android:layout_width="match_parent"
-            android:layout_height="230dp"/>
+            android:layout_height="280dp"/>
 
         <RelativeLayout
             android:id="@+id/account"
@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/imUser"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:background="@drawable/user"/>
 
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="#fff"
-                android:textSize="14dp"
+                android:textSize="15dp"
                 android:text="Nama"
                 android:layout_toRightOf="@+id/imUser"
                 android:layout_marginLeft="8dp"/>
@@ -46,10 +46,10 @@
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
+                android:textSize="13dp"
                 android:layout_below="@+id/tvUserName"
                 android:layout_toRightOf="@+id/imUser"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="10dp"
                 android:textColor="#616161"
                 android:text="Status"
                 android:textStyle="bold|italic"/>
@@ -57,10 +57,11 @@
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/account"
             android:layout_centerInParent="true"
             android:layout_width="327dp"
-            android:layout_height="178dp"
+            android:layout_height="200dp"
             app:cardCornerRadius="19dp">
 
             <RelativeLayout
@@ -108,8 +109,8 @@
         android:layout_weight="8"
         android:columnCount="2"
         android:columnOrderPreserved="false"
-        android:paddingLeft="44dp"
-        android:paddingRight="44dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:rowCount="2">
 
         <!-- Row 1 -->
@@ -121,8 +122,8 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginRight="21dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="19dp">
 
             <RelativeLayout
@@ -131,8 +132,9 @@
                 android:background="@drawable/main_viewcard">
 
                 <ImageView
-                    android:layout_width="89dp"
-                    android:layout_height="89dp"
+                    android:id="@+id/img_mainPengeluaran"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/expenses_color" />
@@ -140,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/img_mainPengeluaran"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
@@ -160,9 +162,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="21dp"
-            android:layout_marginBottom="20dp"
             android:alignmentMode="alignMargins"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="19dp">
 
             <RelativeLayout
@@ -171,8 +173,9 @@
                 android:background="@drawable/main_viewcard">
 
                 <ImageView
-                    android:layout_width="89dp"
-                    android:layout_height="89dp"
+                    android:id="@+id/img_mainPemasukan"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/income_color" />
@@ -180,7 +183,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/img_mainPemasukan"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
@@ -202,8 +205,8 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="21dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="40dp"
             app:cardCornerRadius="19dp">
 
@@ -213,8 +216,9 @@
                 android:background="@drawable/main_viewcard">
 
                 <ImageView
-                    android:layout_width="89dp"
-                    android:layout_height="89dp"
+                    android:id="@+id/img_mainReport"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/finance_report_color" />
@@ -222,7 +226,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/img_mainReport"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
@@ -242,8 +246,8 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="40dp"
             app:cardCornerRadius="19dp">
 
@@ -253,8 +257,9 @@
                 android:background="@drawable/main_viewcard">
 
                 <ImageView
-                    android:layout_width="89dp"
-                    android:layout_height="89dp"
+                    android:id="@+id/img_mainHutang"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/debt_color" />
@@ -262,7 +267,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/img_mainHutang"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
