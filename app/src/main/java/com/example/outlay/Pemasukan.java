@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.outlay.adapter.AdapterPemasukan;
 import com.example.outlay.controller.DatabaseCtrl;
@@ -32,17 +34,51 @@ public class Pemasukan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_pemasukan);
+//        setContentView(R.layout.activity_pemasukan);
 
         databaseCtrl = new DatabaseCtrl(this);
-        back = findViewById(R.id.back_btn_pemasukan);
-        add = findViewById(R.id.add_pemasukan);
+        Cursor res = databaseCtrl.getqueryPemasukan();
+        if(res.getCount() == 0) {
+            setContentView(R.layout.blank_page);
+            blankStatePemasukan(this);
+        }
+        else {
+            setContentView(R.layout.activity_pemasukan);
 
-        recyclerView = findViewById(R.id.recyclerPemasukan);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            back = findViewById(R.id.back_btn_pemasukan);
+            add = findViewById(R.id.add_pemasukan);
 
-        adapterPemasukan = new AdapterPemasukan(this, getList());
-        recyclerView.setAdapter(adapterPemasukan);
+            recyclerView = findViewById(R.id.recyclerPemasukan);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            adapterPemasukan = new AdapterPemasukan(this, getList());
+            recyclerView.setAdapter(adapterPemasukan);
+        }
+    }
+
+    private void blankStatePemasukan(Context context) {
+        ImageView img = findViewById(R.id.imageBlank);
+        TextView txt = findViewById(R.id.text_blank);
+        Button add_blank = findViewById(R.id.submit_blank),
+                back_blank = findViewById(R.id.back_blank);
+
+        img.setImageResource(R.drawable.income_color);
+        txt.setText("Kamu belum memiliki pemasukkan");
+        add_blank.setText("Tambahkan Pemasukkan");
+        add_blank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FormPemasukan.class);
+                startActivityForResult(intent, PEMASUKAN_REQUEST);
+            }
+        });
+        back_blank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<ModelPemasukan> getList() {

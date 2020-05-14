@@ -168,4 +168,12 @@ public class DBHandler extends SQLiteOpenHelper {
         return res;
     }
 
+    public boolean deleteTagihan(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_3,"ID_HUTANG = ?",new String[]{id});
+
+        if(result == -1) return false;
+        else return true;
+    }
+
 }

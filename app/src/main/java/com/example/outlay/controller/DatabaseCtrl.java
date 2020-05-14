@@ -76,6 +76,16 @@ public class DatabaseCtrl {
         return res;
     }
 
+    public int reConvCurrency(String angka){
+        String conv = "";
+        for(int i=3; i<angka.length(); i++){
+            String temp = angka.charAt(i)+"";
+            if(!temp.equals(".")) conv = conv + angka.charAt(i);
+        }
+        int res = Integer.parseInt(conv);
+        return res;
+    }
+
     public int totalBalance(){
         int res = 0, balance = 0, expense = 0;
 
@@ -142,6 +152,11 @@ public class DatabaseCtrl {
 
     public boolean insertUserCtrl(String nama, String pekerjaan, String password, byte[] salt){
         boolean status = dbHandler.insertUser(nama, pekerjaan, password, salt);
+        return status;
+    }
+
+    public boolean removeTagihan(String id){
+        boolean status = dbHandler.deleteTagihan(id);
         return status;
     }
 

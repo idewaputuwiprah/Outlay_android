@@ -1,5 +1,6 @@
 package com.example.outlay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -28,6 +29,7 @@ public class FormTagihan extends AppCompatActivity {
     ImageView imageView;
     DatabaseCtrl databaseCtrl;
     Button back, submit;
+    Context context;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class FormTagihan extends AppCompatActivity {
         bindVarble();
 
         databaseCtrl = new DatabaseCtrl(this);
+        context = this;
 
         nama.setHint("nama tagihan/hutang");
         imageView.setImageResource(R.drawable.debt_color);
@@ -78,10 +81,11 @@ public class FormTagihan extends AppCompatActivity {
                 int uang = Integer.parseInt(nominal.getText().toString().trim());
 
                 boolean status = databaseCtrl.insertTagihanCtrl(nama.getText().toString().trim(), date, uang, spinner.getSelectedItem().toString().trim());
-                Toast.makeText(FormTagihan.this, status+"", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
+//                Toast.makeText(FormTagihan.this, status+"", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, Tagihan.class);
+//                setResult(RESULT_OK, intent);
+//                finish();
+                startActivity(intent);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {

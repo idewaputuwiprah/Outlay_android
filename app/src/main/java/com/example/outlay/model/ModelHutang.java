@@ -2,7 +2,7 @@ package com.example.outlay.model;
 
 public class ModelHutang {
 
-    String nominal, nama, date;
+    String nominal, nama, date, id, idKategori;
 
     public ModelHutang() {
 
@@ -30,5 +30,21 @@ public class ModelHutang {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdKategori() {
+        return idKategori;
+    }
+
+    public void setIdKategori(String idKategori) {
+        this.idKategori = idKategori;
     }
 }

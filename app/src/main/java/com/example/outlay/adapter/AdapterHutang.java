@@ -1,14 +1,18 @@
 package com.example.outlay.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.outlay.R;
+import com.example.outlay.holder.EventClickListener;
 import com.example.outlay.holder.HolderHutang;
 import com.example.outlay.model.ModelHutang;
 
@@ -38,6 +42,16 @@ public class AdapterHutang extends RecyclerView.Adapter<HolderHutang> {
         holder.titleText.setText(models.get(position).getNama());
         holder.nominalText.setText(models.get(position).getNominal());
         holder.tanggalText.setText(models.get(position).getDate());
+        holder.setEventClickListener(new EventClickListener() {
+            @Override
+            public void onItemClickListener(View v, int position) {
+                String nominal = models.get(position).getNominal();
+                Intent intent = new Intent("custom-message");
+                intent.putExtra("ID", models.get(position).getId());
+                intent.putExtra("NOMINAL", nominal);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            }
+        });
 
     }
 

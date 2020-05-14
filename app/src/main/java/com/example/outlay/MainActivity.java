@@ -1,16 +1,16 @@
 package com.example.outlay;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.outlay.controller.DatabaseCtrl;
 
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView textBalance, nama, status;
     DBHandler dbHandler;
     DatabaseCtrl databaseCtrl;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setUser();
 
         textBalance = findViewById(R.id.balance);
-        textBalance.setText(databaseCtrl.currencyConv(databaseCtrl.totalBalance())+",00");
+        totalBalance();
+    }
+
+    private void totalBalance() {
+        int res = databaseCtrl.totalBalance() - sharedPreferences.getInt("hutang", 0);
+        textBalance.setText(databaseCtrl.currencyConv(res)+",00");
     }
 
     private void setUser() {
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hutang = findViewById(R.id.card_hutang);
         nama = findViewById(R.id.tvUserName);
         status = findViewById(R.id.tvStatus);
+        sharedPreferences = getSharedPreferences("com.example.outlay.hutang", Context.MODE_PRIVATE);
 
         pengeluaran.setOnClickListener(this);
         pemasukan.setOnClickListener(this);

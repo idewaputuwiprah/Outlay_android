@@ -5,17 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.outlay.adapter.AdapterPengeluaran;
 import com.example.outlay.controller.DatabaseCtrl;
-import com.example.outlay.model.ModelPemasukan;
 import com.example.outlay.model.ModelPengeluaran;
 
 import java.util.ArrayList;
@@ -33,17 +34,50 @@ public class Pengeluaran extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_pengeluaran);
+//        setContentView(R.layout.activity_pengeluaran);
 
         databaseCtrl = new DatabaseCtrl(this);
-        back = findViewById(R.id.back_btn_pemasukan);
-        add = findViewById(R.id.add_pemasukan);
-        
-        recyclerView = findViewById(R.id.recyclerPengeluaran);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        
-        adapterPengeluaran = new AdapterPengeluaran(this, getList());
-        recyclerView.setAdapter(adapterPengeluaran);
+        Cursor res = databaseCtrl.getqueryPengeluaran();
+        if(res.getCount() == 0){
+            setContentView(R.layout.blank_page);
+            blankStatePengeluaran(this);
+        }
+        else {
+            setContentView(R.layout.activity_pengeluaran);
+            back = findViewById(R.id.back_btn_pemasukan);
+            add = findViewById(R.id.add_pemasukan);
+
+            recyclerView = findViewById(R.id.recyclerPengeluaran);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            adapterPengeluaran = new AdapterPengeluaran(this, getList());
+            recyclerView.setAdapter(adapterPengeluaran);
+        }
+    }
+
+    private void blankStatePengeluaran(Context context) {
+        ImageView img = findViewById(R.id.imageBlank);
+        TextView txt = findViewById(R.id.text_blank);
+        Button add_blank = findViewById(R.id.submit_blank),
+                back_blank = findViewById(R.id.back_blank);
+
+        img.setImageResource(R.drawable.expenses_color);
+        txt.setText("Kamu belum memiliki pengeluaran");
+        add_blank.setText("Tambahkan Pengeluaran");
+        add_blank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FormPengeluaran.class);
+                startActivityForResult(intent, PENGELUARAN_REQUEST);
+            }
+        });
+        back_blank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<ModelPengeluaran> getList() {
