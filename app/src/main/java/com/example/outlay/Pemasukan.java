@@ -87,15 +87,6 @@ public class Pemasukan extends AppCompatActivity {
             blankStatePemasukan(this);
         }
         else {
-            Intent get = getIntent();
-//            filter = get.getStringExtra("ISFILTER");
-            if (filter.equals("")) filter = "no";
-            Toast.makeText(this, filter, Toast.LENGTH_SHORT).show();
-//            startDate = get.getStringExtra("start");
-//            Toast.makeText(this, startDate, Toast.LENGTH_SHORT).show();
-//            finishDate = get.getStringExtra("finish");
-//            Toast.makeText(this, finishDate, Toast.LENGTH_SHORT).show();
-
             setContentView(R.layout.activity_pemasukan);
 
             back = findViewById(R.id.back_btn_pemasukan);
@@ -157,11 +148,22 @@ public class Pemasukan extends AppCompatActivity {
         Cursor res;
         ModelPemasukan model;
 
-//        if (filter.equals("yes")) {
-//            res = databaseCtrl.getqueryPemasukanFilter(startDate, finishDate);
-//        }
-//        else res = databaseCtrl.getqueryPemasukan();
-        res = databaseCtrl.getqueryPemasukan();
+        Intent intent = getIntent();
+        if (intent.getExtras() == null){
+
+        }
+        else {
+            filter = intent.getStringExtra("ISFILTER");
+            startDate = intent.getStringExtra("start");
+            finishDate = intent.getStringExtra("finish");
+
+        }
+
+        if (filter.equals("yes")) {
+            res = databaseCtrl.getqueryPemasukanFilter(startDate, finishDate);
+        }
+        else res = databaseCtrl.getqueryPemasukan();
+
         if(res.getCount() != 0){
             while (res.moveToNext()) {
                 model = new ModelPemasukan();
@@ -194,7 +196,7 @@ public class Pemasukan extends AppCompatActivity {
         refresh.putExtra("start", dateStart);
         refresh.putExtra("finish", dateFinish);
         startActivity(refresh);
-//        overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);
     }
 
     @Override
