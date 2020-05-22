@@ -93,6 +93,8 @@ public class Pengeluaran extends AppCompatActivity {
                 model = new ModelPengeluaran();
                 model.setNama(res.getString(1));
                 model.setNominal(databaseCtrl.currencyConv(res.getInt(2)));
+                String hari = databaseCtrl.getHari(res.getString(4));
+                model.setHari(hari + ", ");
                 model.setDate(res.getString(4));
                 models.add(model);
             }

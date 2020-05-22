@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.outlay.R;
+import com.example.outlay.controller.DatabaseCtrl;
 import com.example.outlay.holder.HolderPemasukan;
 import com.example.outlay.model.ModelPemasukan;
 
@@ -37,6 +38,7 @@ public class AdapterPemasukan extends RecyclerView.Adapter<HolderPemasukan> {
     public void onBindViewHolder(@NonNull HolderPemasukan holder, int position) {
 
         holder.titleText.setText(models.get(position).getNama());
+        holder.hariText.setText(models.get(position).getHari());
         holder.tanggalText.setText(models.get(position).getDate());
         holder.nominalText.setText(models.get(position).getNominal());
     }

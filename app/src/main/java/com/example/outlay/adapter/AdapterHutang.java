@@ -41,6 +41,7 @@ public class AdapterHutang extends RecyclerView.Adapter<HolderHutang> {
 
         holder.titleText.setText(models.get(position).getNama());
         holder.nominalText.setText(models.get(position).getNominal());
+        holder.hariText.setText(models.get(position).getHari());
         holder.tanggalText.setText(models.get(position).getDate());
         holder.setEventClickListener(new EventClickListener() {
             @Override

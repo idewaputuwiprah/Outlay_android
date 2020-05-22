@@ -1,7 +1,15 @@
 package com.example.outlay.model;
 
 public class ModelPemasukan {
-    String nominal, nama, date;
+    String nominal, nama, date, hari;
+
+    public String getHari() {
+        return hari;
+    }
+
+    public void setHari(String hari) {
+        this.hari = hari;
+    }
 
     public ModelPemasukan(){
 

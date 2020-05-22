@@ -1,5 +1,6 @@
 package com.example.outlay;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,14 +24,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.outlay.controller.DatabaseCtrl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class FormTagihan extends AppCompatActivity {
 
     Spinner spinner;
-    EditText nama, nominal, hari, bulan, tahun;
+    EditText nama, nominal, tanggal;
     ImageView imageView;
     DatabaseCtrl databaseCtrl;
     Button back, submit;
     Context context;
+    final Calendar myCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, month);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
+
+    private void updateLabel() {
+        String myFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+
+        tanggal.setText(sdf.format(myCalendar.getTime()));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +66,12 @@ public class FormTagihan extends AppCompatActivity {
 
         nama.setHint("nama tagihan/hutang");
         imageView.setImageResource(R.drawable.debt_color);
+        tanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FormTagihan.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.my_spinner_text){
             @Override
@@ -77,7 +105,8 @@ public class FormTagihan extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String date = databaseCtrl.getDate(hari.getText().toString().trim(), bulan.getText().toString().trim(), tahun.getText().toString().trim());
+//                String date = databaseCtrl.getDate(hari.getText().toString().trim(), bulan.getText().toString().trim(), tahun.getText().toString().trim());
+                String date = tanggal.getText().toString().trim();
                 int uang = Integer.parseInt(nominal.getText().toString().trim());
 
                 boolean status = databaseCtrl.insertTagihanCtrl(nama.getText().toString().trim(), date, uang, spinner.getSelectedItem().toString().trim());
@@ -99,9 +128,7 @@ public class FormTagihan extends AppCompatActivity {
     private void bindVarble(){
         nama = findViewById(R.id.nama);
         nominal = findViewById(R.id.jumlah_uang);
-        hari = findViewById(R.id.hari);
-        bulan = findViewById(R.id.bulan);
-        tahun = findViewById(R.id.tahun);
+        tanggal = findViewById(R.id.tanggal);
         submit = findViewById(R.id.submit_form);
         back = findViewById(R.id.back_form);
         imageView = findViewById(R.id.imageForm);

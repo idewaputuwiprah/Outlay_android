@@ -45,8 +45,65 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/searchTvPemasukan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search by:"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/startDatePemasukan"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/searchTvPemasukan"
+            android:layout_centerVertical="true"
+            android:hint="start"
+            android:layout_marginLeft="2dp"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/stripTvPemasukan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="s/d"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/startDatePemasukan"/>
+
+        <EditText
+            android:id="@+id/finishDatePemasukan"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/stripTvPemasukan"
+            android:layout_centerVertical="true"
+            android:hint="finish"
+            android:layout_marginLeft="2dp"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/filterOkPemasukan"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="ok"
+            android:textSize="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/finishDatePemasukan"
+            android:layout_marginLeft="10dp"
+            android:onClick="onFilterPemasukan"/>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="70dp"
         android:id="@+id/recyclerPemasukan"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

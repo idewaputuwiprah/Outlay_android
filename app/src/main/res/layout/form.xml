@@ -52,59 +52,25 @@
             android:textColor="#fff"/>
 
         <EditText
-            android:id="@+id/hari"
+            android:id="@+id/tanggal"
             android:padding="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_edit_text"
-            android:layout_below="@+id/jumlah_uang"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:hint="hari"
-            android:textColorHint="#fff"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_toLeftOf="@+id/bulan"
-            android:layout_marginRight="10dp"
-            android:textColor="#fff"/>
-
-        <EditText
-            android:id="@+id/bulan"
-            android:padding="8dp"
-            android:layout_width="90dp"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_edit_text"
             android:layout_below="@+id/jumlah_uang"
             android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
-            android:hint="bulan"
+            android:hint="tanggal"
             android:textColorHint="#fff"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:textColor="#fff"/>
-
-        <EditText
-            android:id="@+id/tahun"
-            android:padding="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_edit_text"
-            android:layout_below="@+id/jumlah_uang"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:hint="tahun"
-            android:textColorHint="#fff"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/bulan"
-            android:layout_marginLeft="10dp"
             android:textColor="#fff"/>
 
         <Spinner
             android:id="@+id/spinnerKategori"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/hari"
+            android:layout_below="@+id/tanggal"
             android:layout_marginTop="20dp"
             android:padding="8dp"
             android:paddingLeft="10dp"

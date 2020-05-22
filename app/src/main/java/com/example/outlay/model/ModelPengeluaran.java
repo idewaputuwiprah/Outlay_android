@@ -3,10 +3,18 @@ package com.example.outlay.model;
 import java.util.Date;
 
 public class ModelPengeluaran {
-    String nominal, nama, kategori, date;
+    String nominal, nama, kategori, date, hari;
 
     public ModelPengeluaran(){
 
+    }
+
+    public String getHari() {
+        return hari;
+    }
+
+    public void setHari(String hari) {
+        this.hari = hari;
     }
 
     public String getNominal() {

@@ -10,7 +10,7 @@ import com.example.outlay.R;
 
 public class HolderHutang extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView titleText, nominalText, tanggalText;
+    public TextView titleText, nominalText, tanggalText, hariText;
     EventClickListener eventClickListener;
 
     public HolderHutang(@NonNull View itemView) {
@@ -18,6 +18,7 @@ public class HolderHutang extends RecyclerView.ViewHolder implements View.OnClic
 
         this.titleText = itemView.findViewById(R.id.title);
         this.nominalText = itemView.findViewById(R.id.nominal);
+        this.hariText = itemView.findViewById(R.id.nama_hari);
         this.tanggalText = itemView.findViewById(R.id.tanggal);
 
         itemView.setOnClickListener(this);

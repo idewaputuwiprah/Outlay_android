@@ -64,6 +64,13 @@ public class DBHandler extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor queryPemasukanFilter(String start, String finish){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " + TABLE_2 + " WHERE TANGGAL <= ? AND TANGGAL >= ?";
+        Cursor res = db.rawQuery(query,new String[] {finish, start});
+        return res;
+    }
+
     public Cursor queryPengeluaran(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_1, null);

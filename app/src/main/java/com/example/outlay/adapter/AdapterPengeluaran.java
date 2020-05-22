@@ -38,6 +38,7 @@ public class AdapterPengeluaran extends RecyclerView.Adapter<HolderPengeluaran> 
 
 //        holder.titleText.setText(models.get(position).getNama());
         holder.titleText.setText(models.get(position).getNama());
+        holder.hariText.setText(models.get(position).getHari());
         holder.tanggalText.setText(models.get(position).getDate());
         holder.nominalText.setText(models.get(position).getNominal());
 

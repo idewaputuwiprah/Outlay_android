@@ -2,10 +2,18 @@ package com.example.outlay.model;
 
 public class ModelHutang {
 
-    String nominal, nama, date, id, idKategori;
+    String nominal, nama, date, id, idKategori, hari;
 
     public ModelHutang() {
 
+    }
+
+    public String getHari() {
+        return hari;
+    }
+
+    public void setHari(String hari) {
+        this.hari = hari;
     }
 
     public String getNominal() {

@@ -10,7 +10,7 @@ import com.example.outlay.R;
 
 public class HolderPengeluaran extends RecyclerView.ViewHolder {
 
-    public TextView titleText, nominalText, tanggalText;
+    public TextView titleText, nominalText, tanggalText, hariText;
 
     public HolderPengeluaran(@NonNull View itemView) {
         super(itemView);
@@ -19,5 +19,6 @@ public class HolderPengeluaran extends RecyclerView.ViewHolder {
         this.titleText = itemView.findViewById(R.id.title);
         this.nominalText = itemView.findViewById(R.id.nominal);
         this.tanggalText = itemView.findViewById(R.id.tanggal);
+        this.hariText = itemView.findViewById(R.id.nama_hari);
     }
 }

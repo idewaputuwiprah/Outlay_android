@@ -5,6 +5,11 @@ import android.database.Cursor;
 
 import com.example.outlay.DBHandler;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DatabaseCtrl {
 
     DBHandler dbHandler;
@@ -40,6 +45,11 @@ public class DatabaseCtrl {
 
     public Cursor getqueryPemasukan(){
         Cursor res = dbHandler.queryPemasukan();
+        return res;
+    }
+
+    public Cursor getqueryPemasukanFilter(String start, String finish){
+        Cursor res = dbHandler.queryPemasukanFilter(start, finish);
         return res;
     }
 
@@ -158,6 +168,17 @@ public class DatabaseCtrl {
     public boolean removeTagihan(String id){
         boolean status = dbHandler.deleteTagihan(id);
         return status;
+    }
+
+    public String getHari(String tanggal) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(tanggal);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);;
+        return dayOfWeek;
     }
 
 }

@@ -145,10 +145,11 @@ public class Tagihan extends AppCompatActivity {
             while (res.moveToNext()) {
                 model = new ModelHutang();
                 model.setId(res.getInt(0)+"");
-//                Toast.makeText(this, model.getId()+"", Toast.LENGTH_SHORT).show();
                 model.setNama(res.getString(1));
                 model.setNominal(databaseCtrl.currencyConv(res.getInt(2)));
                 model.setIdKategori(res.getInt(3)+"");
+                String hari = databaseCtrl.getHari(res.getString(4));
+                model.setHari(hari + ", ");
                 model.setDate(res.getString(4));
                 models.add(model);
             }
