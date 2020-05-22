@@ -77,6 +77,13 @@ public class DBHandler extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor queryPengeluaranFilter(String start, String finish){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " + TABLE_1 + " WHERE TANGGAL <= ? AND TANGGAL >= ?";
+        Cursor res = db.rawQuery(query,new String[] {finish, start});
+        return res;
+    }
+
 //    public Cursor queryHutang(){
 //        SQLiteDatabase db = this.getWritableDatabase();
 //        String query = "select * from " + TABLE_3 + " where strftime(?, tanggal) = ?" ;
@@ -88,6 +95,13 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select * from " + TABLE_3 ;
         Cursor res = db.rawQuery(query, null);
+        return res;
+    }
+
+    public Cursor queryHutangFilter(String start, String finish){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " + TABLE_3 + " WHERE TANGGAL <= ? AND TANGGAL >= ?";
+        Cursor res = db.rawQuery(query,new String[] {finish, start});
         return res;
     }
 

@@ -156,7 +156,6 @@ public class Pemasukan extends AppCompatActivity {
             filter = intent.getStringExtra("ISFILTER");
             startDate = intent.getStringExtra("start");
             finishDate = intent.getStringExtra("finish");
-
         }
 
         if (filter.equals("yes")) {

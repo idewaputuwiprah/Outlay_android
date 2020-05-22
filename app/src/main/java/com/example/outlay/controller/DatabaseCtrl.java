@@ -43,6 +43,11 @@ public class DatabaseCtrl {
         return res;
     }
 
+    public Cursor getqueryPengeluaranFilter(String start, String finish){
+        Cursor res = dbHandler.queryPengeluaranFilter(start, finish);
+        return res;
+    }
+
     public Cursor getqueryPemasukan(){
         Cursor res = dbHandler.queryPemasukan();
         return res;
@@ -55,6 +60,11 @@ public class DatabaseCtrl {
 
     public Cursor getqueryHutang(){
         Cursor res = dbHandler.queryHutang();
+        return res;
+    }
+
+    public Cursor getqueryHutangFilter(String start, String finish){
+        Cursor res = dbHandler.queryHutangFilter(start, finish);
         return res;
     }
 

@@ -6,6 +6,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +19,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +29,9 @@ import com.example.outlay.adapter.AdapterHutang;
 import com.example.outlay.controller.DatabaseCtrl;
 import com.example.outlay.model.ModelHutang;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Tagihan extends AppCompatActivity {
 
@@ -38,6 +43,43 @@ public class Tagihan extends AppCompatActivity {
     DatabaseCtrl databaseCtrl;
     SharedPreferences sharedPreferences;
     Dialog confirmDialog;
+    EditText start, finish;
+    String filter = "no", startDate, finishDate;
+    final Calendar myCalendarStart = Calendar.getInstance();
+    final Calendar myCalendarFinish = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener dateMulai = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            myCalendarStart.set(Calendar.YEAR, year);
+            myCalendarStart.set(Calendar.MONTH, month);
+            myCalendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateStart();
+        }
+    };
+
+    private void updateStart() {
+        String myFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+
+        start.setText(sdf.format(myCalendarStart.getTime()));
+    }
+
+    DatePickerDialog.OnDateSetListener dateSelesai = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            myCalendarFinish.set(Calendar.YEAR, year);
+            myCalendarFinish.set(Calendar.MONTH, month);
+            myCalendarFinish.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateFinish();
+        }
+    };
+
+    private void updateFinish() {
+        String myFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+
+        finish.setText(sdf.format(myCalendarFinish.getTime()));
+    }
 
     public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -98,6 +140,9 @@ public class Tagihan extends AppCompatActivity {
             add = findViewById(R.id.add_pemasukan);
             pay = findViewById(R.id.pay);
 
+            start = findViewById(R.id.startDateHutang);
+            finish = findViewById(R.id.finishDateHutang);
+
             recyclerView = findViewById(R.id.recyclerTagihan);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -106,6 +151,20 @@ public class Tagihan extends AppCompatActivity {
 
             sharedPreferences = getSharedPreferences("com.example.outlay.hutang", Context.MODE_PRIVATE);
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("custom-message"));
+
+            start.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new DatePickerDialog(Tagihan.this, dateMulai, myCalendarStart.get(Calendar.YEAR), myCalendarStart.get(Calendar.MONTH), myCalendarStart.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+
+            finish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new DatePickerDialog(Tagihan.this, dateSelesai, myCalendarFinish.get(Calendar.YEAR), myCalendarFinish.get(Calendar.MONTH), myCalendarFinish.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
         }
     }
 
@@ -139,7 +198,22 @@ public class Tagihan extends AppCompatActivity {
         Cursor res;
         ModelHutang model;
 
-        res = databaseCtrl.getqueryHutang();
+        Intent intent = getIntent();
+        if (intent.getExtras() == null){
+
+        }
+        else {
+            filter = intent.getStringExtra("ISFILTER");
+            startDate = intent.getStringExtra("start");
+            finishDate = intent.getStringExtra("finish");
+        }
+
+        if (filter.equals("yes")) {
+            res = databaseCtrl.getqueryHutangFilter(startDate,finishDate);
+        }
+        else res = databaseCtrl.getqueryHutang();
+
+//        res = databaseCtrl.getqueryHutang();
 
         if(res.getCount() != 0){
             while (res.moveToNext()) {
@@ -165,6 +239,17 @@ public class Tagihan extends AppCompatActivity {
     public void onBackTagihan(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void onFilterHutang(View view){
+        String dateStart = start.getText().toString().trim();
+        String dateFinish = finish.getText().toString().trim();
+        Intent refresh = new Intent(this, Tagihan.class);
+        refresh.putExtra("ISFILTER", "yes");
+        refresh.putExtra("start", dateStart);
+        refresh.putExtra("finish", dateFinish);
+        startActivity(refresh);
+        overridePendingTransition(0, 0);
     }
 
 //    @Override

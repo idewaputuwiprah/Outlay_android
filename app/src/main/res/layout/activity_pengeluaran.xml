@@ -46,8 +46,65 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/searchTvPengeluaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search by:"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/startDatePengeluaran"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/searchTvPengeluaran"
+            android:layout_centerVertical="true"
+            android:hint="start"
+            android:layout_marginLeft="2dp"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/stripTvPengeluaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="s/d"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/startDatePengeluaran"/>
+
+        <EditText
+            android:id="@+id/finishDatePengeluaran"
+            android:clickable="true"
+            android:editable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/stripTvPengeluaran"
+            android:layout_centerVertical="true"
+            android:hint="finish"
+            android:layout_marginLeft="2dp"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/filterOkPengeluaran"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="ok"
+            android:textSize="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/finishDatePengeluaran"
+            android:layout_marginLeft="10dp"
+            android:onClick="onFilterPengeluaran"/>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="70dp"
         android:id="@+id/recyclerPengeluaran"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
